@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { User } from '../../domain/entities/user.entity';
 import { UserRepository } from '../../domain/repositories/user.repository.interface';
 import { UserService } from '../../domain/services/user.service.interface';
 import { CreateUserRequest } from '../ports/user.port';
+import { USER_REPOSITORY_TOKEN, USER_SERVICE_TOKEN } from '../../infrastructure/config/dependency-injection.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateUserUseCase {
   constructor(
-    private userRepository: UserRepository,
-    private userService: UserService
+    @Inject(USER_REPOSITORY_TOKEN) private userRepository: UserRepository,
+    @Inject(USER_SERVICE_TOKEN) private userService: UserService
   ) {}
 
   async execute(request: CreateUserRequest): Promise<User> {
