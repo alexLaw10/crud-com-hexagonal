@@ -1,0 +1,20 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3 class="modal__title">Editar Post</h3>
+      <button class="modal__close" (click)="onClose()" title="Fechar">
+        <span class="icon">✕</span>
+      </button>
+    </div>
+    
+    <div class="modal__body">
+      <app-form
+        [post]="post"
+        [isEditMode]="true"
+        [loading]="loading"
+        (submit)="onSubmit($event)"
+        (cancel)="onClose()">
+      </app-form>
+    </div>
+  </div>
+</div>

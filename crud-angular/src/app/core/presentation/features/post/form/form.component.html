@@ -1,0 +1,73 @@
+<div class="post-form">
+  <h3 class="post-form__title">
+    {{ isEditMode ? 'Editar Post' : 'Novo Post' }}
+  </h3>
+  
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form__form">
+    <div class="form-group">
+      <label for="title" class="form-label">Título *</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-input"
+        [class.error]="title?.invalid && title?.touched"
+        placeholder="Digite o título do post">
+      <div *ngIf="title?.invalid && title?.touched" class="form-error">
+        <span *ngIf="title?.errors?.['required']">Título é obrigatório</span>
+        <span *ngIf="title?.errors?.['minlength']">Título deve ter pelo menos 3 caracteres</span>
+        <span *ngIf="title?.errors?.['maxlength']">Título deve ter no máximo 100 caracteres</span>
+        <span *ngIf="title?.errors?.['whitespace']">Título não pode conter apenas espaços</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="body" class="form-label">Conteúdo *</label>
+      <textarea
+        id="body"
+        formControlName="body"
+        rows="4"
+        class="form-textarea"
+        [class.error]="body?.invalid && body?.touched"
+        placeholder="Digite o conteúdo do post"></textarea>
+      <div *ngIf="body?.invalid && body?.touched" class="form-error">
+        <span *ngIf="body?.errors?.['required']">Conteúdo é obrigatório</span>
+        <span *ngIf="body?.errors?.['minlength']">Conteúdo deve ter pelo menos 10 caracteres</span>
+        <span *ngIf="body?.errors?.['maxlength']">Conteúdo deve ter no máximo 500 caracteres</span>
+        <span *ngIf="body?.errors?.['whitespace']">Conteúdo não pode conter apenas espaços</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userId" class="form-label">User ID *</label>
+      <input
+        type="number"
+        id="userId"
+        formControlName="userId"
+        class="form-input"
+        [class.error]="userId?.invalid && userId?.touched"
+        placeholder="Digite o ID do usuário">
+      <div *ngIf="userId?.invalid && userId?.touched" class="form-error">
+        <span *ngIf="userId?.errors?.['required']">User ID é obrigatório</span>
+        <span *ngIf="userId?.errors?.['min']">User ID deve ser maior que 0</span>
+        <span *ngIf="userId?.errors?.['max']">User ID deve ser menor que 100</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn--secondary"
+        (click)="onCancel()">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn--primary"
+        [disabled]="postForm.invalid || loading">
+        <span *ngIf="loading" class="spinner"></span>
+        {{ isEditMode ? 'Atualizar' : 'Criar' }} Post
+      </button>
+    </div>
+  </form>
+</div>

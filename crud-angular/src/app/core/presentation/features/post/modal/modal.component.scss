@@ -1,0 +1,199 @@
+// Variables
+$text-color: #333;
+$white: #ffffff;
+$overlay-bg: rgba(0, 0, 0, 0.5);
+$border-radius: 12px;
+$shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+$transition: all 0.3s ease;
+
+// Breakpoints
+$mobile: 768px;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $overlay-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+
+  @media (max-width: $mobile) {
+    padding: 0.5rem;
+  }
+}
+
+.modal {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideInUp 0.3s ease;
+
+  @media (max-width: $mobile) {
+    max-height: 95vh;
+  }
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  background: #f8f9fa;
+
+  @media (max-width: $mobile) {
+    padding: 1rem 1.5rem;
+  }
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text-color;
+  margin: 0;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    background: #e9ecef;
+    color: $text-color;
+  }
+
+  &:focus {
+    outline: 2px solid #1976d2;
+    outline-offset: 2px;
+  }
+}
+
+.modal__body {
+  padding: 0;
+  overflow-y: auto;
+  max-height: calc(90vh - 80px);
+
+  @media (max-width: $mobile) {
+    max-height: calc(95vh - 80px);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Backdrop click animation
+.modal-overlay.clicked {
+  animation: fadeOut 0.2s ease;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Modal exit animation
+.modal.exiting {
+  animation: slideOutDown 0.2s ease;
+}
+
+@keyframes slideOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .modal {
+    border: 2px solid $text-color;
+  }
+  
+  .modal__header {
+    border-bottom: 2px solid $text-color;
+  }
+  
+  .modal__close {
+    border: 2px solid $text-color;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal,
+  .modal__close {
+    animation: none;
+    transition: none;
+  }
+}
+
+// Focus trap styles
+.modal:focus-within {
+  outline: none;
+}
+
+// Scrollbar styling for modal body
+.modal__body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal__body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal__body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.modal__body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

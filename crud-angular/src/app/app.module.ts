@@ -1,28 +1,46 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostListComponent } from './core/presentation/components/post-list.component';
-import { PostEditComponent } from './core/presentation/components/post-edit.component';
+import { HeaderMenuComponent, ToastComponent } from './shared';
+import { 
+  ListComponent, 
+  ItemComponent, 
+  FormComponent, 
+  ModalComponent, 
+  EditComponent 
+} from './core/presentation/features/post';
+import { ErrorInterceptor } from './core/infrastructure/interceptors/error.interceptor';
 import { CORE_PROVIDERS } from './core/infrastructure/config/dependency-injection.config';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostListComponent,
-    PostEditComponent
+    HeaderMenuComponent,
+    ListComponent,
+    ItemComponent,
+    FormComponent,
+    ModalComponent,
+    EditComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
-    ...CORE_PROVIDERS
+    ...CORE_PROVIDERS,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,3 @@
-// Models
-export * from './models/api-response.model';
-
-// Utils
-export * from './utils/validation.util';
-
-// Constants
-export * from './constants/app.constants';
+// Shared Components (UI only - no business logic)
+export { HeaderMenuComponent } from './components/header';
+export { ToastComponent } from './components/toast';

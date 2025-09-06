@@ -1,0 +1,61 @@
+<div class="post-list">
+  <div class="post-list__header">
+    <h2 class="post-list__title">Lista de Posts</h2>
+    <div class="post-list__actions">
+      <button 
+        class="btn btn--primary" 
+        (click)="loadPosts()"
+        [disabled]="loading">
+        <span *ngIf="loading" class="spinner"></span>
+        {{ loading ? 'Carregando...' : 'Carregar Posts' }}
+      </button>
+      <button 
+        class="btn btn--secondary" 
+        (click)="toggleCreateForm()">
+        {{ showCreateForm ? 'Cancelar' : 'Novo Post' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Create Form -->
+  <div *ngIf="showCreateForm" class="post-list__form">
+    <app-form
+      [loading]="loading"
+      (submit)="createPost($event)"
+      (cancel)="toggleCreateForm()">
+    </app-form>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    <span class="error-icon">⚠️</span>
+    {{ error }}
+    <button class="error-close" (click)="clearError()">✕</button>
+  </div>
+
+  <!-- Posts List -->
+  <div class="post-list__content">
+    <div *ngIf="posts.length === 0 && !loading" class="empty-state">
+      <div class="empty-state__icon">📝</div>
+      <h3>Nenhum post encontrado</h3>
+      <p>Clique em "Carregar Posts" para buscar posts da API ou "Novo Post" para criar um.</p>
+    </div>
+
+    <div *ngFor="let post of posts; trackBy: trackByPostId" class="post-list__item">
+      <app-item
+        [post]="post"
+        (edit)="editPost($event)"
+        (delete)="deletePost($event)">
+      </app-item>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<app-modal
+  [isOpen]="showEditModal"
+  [post]="selectedPost"
+  [loading]="loading"
+  (close)="closeEditModal()"
+  (submit)="updatePost($event)">
+</app-modal>

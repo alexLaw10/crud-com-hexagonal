@@ -1,0 +1,222 @@
+// Variables
+$primary-color: #1976d2;
+$danger-color: #dc3545;
+$text-color: #333;
+$text-light: #666;
+$text-muted: #999;
+$white: #ffffff;
+$light-bg: #f8f9fa;
+$border-color: #e9ecef;
+$border-radius: 8px;
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+$transition: all 0.3s ease;
+
+// Breakpoints
+$mobile: 768px;
+
+.post-item {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: $shadow;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-2px);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+    margin: 0;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    @media (max-width: $mobile) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__content {
+    margin-bottom: 1rem;
+  }
+
+  &__body {
+    color: $text-light;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid $border-color;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__user-id,
+  &__id {
+    font-size: 0.875rem;
+    color: $text-muted;
+    background: $light-bg;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  &__dates {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: right;
+
+    @media (max-width: $mobile) {
+      text-align: left;
+    }
+  }
+
+  &__date {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+}
+
+// Button styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: $transition;
+  min-width: 36px;
+  height: 36px;
+
+  &--small {
+    padding: 0.375rem;
+    font-size: 0.75rem;
+    min-width: 32px;
+    height: 32px;
+  }
+
+  &--primary {
+    background: $primary-color;
+    color: $white;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+      transform: translateY(-1px);
+    }
+  }
+
+  &--danger {
+    background: $danger-color;
+    color: $white;
+
+    &:hover {
+      background: darken($danger-color, 10%);
+      transform: translateY(-1px);
+    }
+  }
+
+  .icon {
+    font-size: 0.875rem;
+  }
+}
+
+// Focus styles for accessibility
+.btn:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Loading state
+.post-item.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+// Animation for new items
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post-item.new {
+  animation: slideInUp 0.3s ease;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .post-item {
+    border: 2px solid $text-color;
+  }
+  
+  .btn--primary {
+    background: $primary-color;
+    border: 2px solid $primary-color;
+  }
+  
+  .btn--danger {
+    background: $danger-color;
+    border: 2px solid $danger-color;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .post-item,
+  .btn {
+    transition: none;
+    animation: none;
+  }
+}
