@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { PostPort } from '../../application/ports/post.port';
-import { PostDto, CreatePostDto, UpdatePostDto } from '../../application/dtos/post.dto';
+import { PostPort } from '../ports/post.port';
+import { PostDto, CreatePostDto, UpdatePostDto } from '../dtos/post.dto';
 import { POST_PORT_TOKEN } from '../../infrastructure/config/dependency-injection.config';
 
 @Injectable({

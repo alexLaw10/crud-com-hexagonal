@@ -35,18 +35,34 @@
 
   <!-- Posts List -->
   <div class="post-list__content">
-    <div *ngIf="posts.length === 0 && !loading" class="empty-state">
+    <div *ngIf="displayedPosts.length === 0 && !loading" class="empty-state">
       <div class="empty-state__icon">📝</div>
       <h3>Nenhum post encontrado</h3>
       <p>Clique em "Carregar Posts" para buscar posts da API ou "Novo Post" para criar um.</p>
     </div>
 
-    <div *ngFor="let post of posts; trackBy: trackByPostId" class="post-list__item">
+    <div *ngFor="let post of displayedPosts; trackBy: trackByPostId" class="post-list__item">
       <app-item
         [post]="post"
         (edit)="editPost($event)"
         (delete)="deletePost($event)">
       </app-item>
+    </div>
+
+    <!-- Load More Button -->
+    <div *ngIf="hasMorePosts && displayedPosts.length > 0" class="post-list__load-more">
+      <button 
+        class="btn btn--outline btn--large" 
+        (click)="loadMorePosts()"
+        [disabled]="loadingMore">
+        <span *ngIf="loadingMore" class="spinner spinner--small"></span>
+        {{ loadingMore ? 'Carregando mais posts...' : 'Carregar mais posts' }}
+      </button>
+    </div>
+
+    <!-- No More Posts Message -->
+    <div *ngIf="!hasMorePosts && displayedPosts.length > 0" class="post-list__end">
+      <p>Você viu todos os posts disponíveis! 🎉</p>
     </div>
   </div>
 </div>

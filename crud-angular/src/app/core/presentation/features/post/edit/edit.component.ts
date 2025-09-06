@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { PostService } from '../../../services/post.service';
+import { PostService } from '../../../../application/services/post.service';
 import { PostDto, UpdatePostDto } from '../../../../application/dtos/post.dto';
 
 @Component({

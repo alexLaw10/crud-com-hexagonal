@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { PostService } from '../../../services/post.service';
+import { PostService } from '../../../../application/services/post.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
 import { PostDto, CreatePostDto, UpdatePostDto } from '../../../../application/dtos/post.dto';
 
@@ -11,11 +11,15 @@ import { PostDto, CreatePostDto, UpdatePostDto } from '../../../../application/d
 })
 export class ListComponent implements OnInit {
   public posts: PostDto[] = [];
+  public displayedPosts: PostDto[] = [];
   public loading = false;
+  public loadingMore = false;
   public error: string | null = null;
   public showCreateForm = false;
   public showEditModal = false;
   public selectedPost: PostDto | null = null;
+  public postsPerPage = 5;
+  public hasMorePosts = true;
 
   constructor(
     private postService: PostService,
@@ -34,6 +38,8 @@ export class ListComponent implements OnInit {
     this.postService.getAllPosts().subscribe({
       next: (posts) => {
         this.posts = posts;
+        this.displayedPosts = posts.slice(0, this.postsPerPage);
+        this.hasMorePosts = posts.length > this.postsPerPage;
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -43,6 +49,22 @@ export class ListComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  public loadMorePosts(): void {
+    if (this.loadingMore || !this.hasMorePosts) return;
+
+    this.loadingMore = true;
+    const currentLength = this.displayedPosts.length;
+    const nextBatch = this.posts.slice(currentLength, currentLength + this.postsPerPage);
+    
+    // Simular delay de carregamento
+    setTimeout(() => {
+      this.displayedPosts = [...this.displayedPosts, ...nextBatch];
+      this.hasMorePosts = this.displayedPosts.length < this.posts.length;
+      this.loadingMore = false;
+      this.cdr.detectChanges();
+    }, 1000);
   }
 
   public toggleCreateForm(): void {
@@ -64,6 +86,8 @@ export class ListComponent implements OnInit {
     this.postService.createPost(createPostData).subscribe({
       next: (createdPost) => {
         this.posts.unshift(createdPost);
+        this.displayedPosts = this.posts.slice(0, this.displayedPosts.length + 1);
+        this.hasMorePosts = this.displayedPosts.length < this.posts.length;
         this.showCreateForm = false;
         this.loading = false;
         this.toastService.showSuccess('Post criado com sucesso!');
@@ -119,6 +143,8 @@ export class ListComponent implements OnInit {
     this.postService.deletePost(id).subscribe({
       next: () => {
         this.posts = this.posts.filter(p => p.id !== id);
+        this.displayedPosts = this.displayedPosts.filter(p => p.id !== id);
+        this.hasMorePosts = this.displayedPosts.length < this.posts.length;
         this.loading = false;
         this.toastService.showSuccess('Post deletado com sucesso!');
         this.cdr.detectChanges();

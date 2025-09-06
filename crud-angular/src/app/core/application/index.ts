@@ -4,6 +4,9 @@ export * from './ports/post.port';
 // Adapters
 export * from './adapters/post.adapter';
 
+// Services
+export * from './services/post.service';
+
 // Use Cases
 export * from './use-cases/create-post.use-case';
 export * from './use-cases/get-post.use-case';
