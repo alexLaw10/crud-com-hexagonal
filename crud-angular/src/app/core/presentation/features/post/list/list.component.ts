@@ -34,14 +34,17 @@ export class ListComponent implements OnInit {
   public loadPosts(): void {
     this.loading = true;
     this.error = null;
-    
+
     this.postService.getAllPosts().subscribe({
       next: (posts) => {
-        this.posts = posts;
-        this.displayedPosts = posts.slice(0, this.postsPerPage);
-        this.hasMorePosts = posts.length > this.postsPerPage;
-        this.loading = false;
-        this.cdr.detectChanges();
+        // Simular delay para mostrar skeleton por mais tempo
+        setTimeout(() => {
+          this.posts = posts;
+          this.displayedPosts = posts.slice(0, this.postsPerPage);
+          this.hasMorePosts = posts.length > this.postsPerPage;
+          this.loading = false;
+          this.cdr.detectChanges();
+        }, 2000); // 2 segundos para visualizar melhor o skeleton
       },
       error: (error) => {
         this.error = 'Erro ao carregar posts: ' + error.message;
@@ -64,7 +67,7 @@ export class ListComponent implements OnInit {
       this.hasMorePosts = this.displayedPosts.length < this.posts.length;
       this.loadingMore = false;
       this.cdr.detectChanges();
-    }, 1000);
+    }, 1500); // 1.5 segundos para visualizar skeleton do botão
   }
 
   public toggleCreateForm(): void {

@@ -1,4 +1,5 @@
-// Post Domain Components
+// Post Module and Components
+export { PostModule } from './post.module';
 export { ListComponent } from './list';
 export { ItemComponent } from './item';
 export { FormComponent } from './form';

@@ -35,12 +35,21 @@
 
   <!-- Posts List -->
   <div class="post-list__content">
+    <!-- Skeleton Loading -->
+    <app-post-skeleton 
+      *ngIf="loading && displayedPosts.length === 0"
+      [count]="5"
+      [showHeader]="false">
+    </app-post-skeleton>
+
+    <!-- Empty State -->
     <div *ngIf="displayedPosts.length === 0 && !loading" class="empty-state">
       <div class="empty-state__icon">📝</div>
       <h3>Nenhum post encontrado</h3>
       <p>Clique em "Carregar Posts" para buscar posts da API ou "Novo Post" para criar um.</p>
     </div>
 
+    <!-- Posts -->
     <div *ngFor="let post of displayedPosts; trackBy: trackByPostId" class="post-list__item">
       <app-item
         [post]="post"
@@ -52,12 +61,21 @@
     <!-- Load More Button -->
     <div *ngIf="hasMorePosts && displayedPosts.length > 0" class="post-list__load-more">
       <button 
+        *ngIf="!loadingMore"
         class="btn btn--outline btn--large" 
-        (click)="loadMorePosts()"
-        [disabled]="loadingMore">
-        <span *ngIf="loadingMore" class="spinner spinner--small"></span>
-        {{ loadingMore ? 'Carregando mais posts...' : 'Carregar mais posts' }}
+        (click)="loadMorePosts()">
+        Carregar mais posts
       </button>
+      
+      <!-- Skeleton for loading more -->
+      <div *ngIf="loadingMore" class="post-list__loading-more">
+        <app-skeleton 
+          width="200px" 
+          height="48px" 
+          borderRadius="24px"
+          animation="pulse">
+        </app-skeleton>
+      </div>
     </div>
 
     <!-- No More Posts Message -->

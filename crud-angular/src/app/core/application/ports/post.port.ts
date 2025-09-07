@@ -8,3 +8,4 @@ export interface PostPort {
   updatePost(id: string, updatePostDto: UpdatePostDto): Promise<Post>;
   deletePost(id: string): Promise<void>;
 }
+

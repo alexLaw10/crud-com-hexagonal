@@ -1,0 +1,11 @@
+<div class="skeleton-container" [style.--spacing]="spacing">
+  <div 
+    *ngFor="let line of linesArray; let i = index"
+    class="skeleton-line"
+    [class.skeleton-line--pulse]="animation === 'pulse'"
+    [class.skeleton-line--wave]="animation === 'wave'"
+    [style.width]="i === linesArray.length - 1 ? '60%' : width"
+    [style.height]="height"
+    [style.border-radius]="borderRadius">
+  </div>
+</div>

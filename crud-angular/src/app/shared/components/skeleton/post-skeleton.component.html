@@ -1,0 +1,124 @@
+<div class="post-skeleton-container">
+  <!-- Loading Indicator -->
+  <div class="skeleton-loading-indicator">
+    <div class="skeleton-spinner"></div>
+    <span>Carregando posts...</span>
+  </div>
+
+  <!-- Header Skeleton -->
+  <div *ngIf="showHeader" class="post-skeleton-header">
+    <app-skeleton 
+      width="200px" 
+      height="32px" 
+      borderRadius="8px"
+      animation="pulse">
+    </app-skeleton>
+    <app-skeleton 
+      width="120px" 
+      height="20px" 
+      borderRadius="4px"
+      animation="pulse">
+    </app-skeleton>
+  </div>
+
+  <!-- Post Items Skeleton - Simulando layout real -->
+  <div *ngFor="let item of skeletonArray" class="post-skeleton-item">
+    <!-- Header com título e ações -->
+    <div class="post-skeleton-item__header">
+      <div class="post-skeleton-item__title-section">
+        <app-skeleton 
+          width="85%" 
+          height="28px" 
+          borderRadius="4px"
+          animation="wave">
+        </app-skeleton>
+        <app-skeleton 
+          width="70%" 
+          height="28px" 
+          borderRadius="4px"
+          animation="wave">
+        </app-skeleton>
+      </div>
+      <div class="post-skeleton-item__actions">
+        <app-skeleton 
+          width="32px" 
+          height="32px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+        <app-skeleton 
+          width="32px" 
+          height="32px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+      </div>
+    </div>
+    
+    <!-- Conteúdo do post -->
+    <div class="post-skeleton-item__content">
+      <app-skeleton 
+        width="100%" 
+        height="16px" 
+        borderRadius="4px"
+        animation="wave">
+      </app-skeleton>
+      <app-skeleton 
+        width="98%" 
+        height="16px" 
+        borderRadius="4px"
+        animation="wave">
+      </app-skeleton>
+      <app-skeleton 
+        width="95%" 
+        height="16px" 
+        borderRadius="4px"
+        animation="wave">
+      </app-skeleton>
+      <app-skeleton 
+        width="88%" 
+        height="16px" 
+        borderRadius="4px"
+        animation="wave">
+      </app-skeleton>
+      <app-skeleton 
+        width="75%" 
+        height="16px" 
+        borderRadius="4px"
+        animation="wave">
+      </app-skeleton>
+    </div>
+    
+    <!-- Footer com meta e datas -->
+    <div class="post-skeleton-item__footer">
+      <div class="post-skeleton-item__meta">
+        <app-skeleton 
+          width="80px" 
+          height="24px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+        <app-skeleton 
+          width="60px" 
+          height="24px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+      </div>
+      <div class="post-skeleton-item__dates">
+        <app-skeleton 
+          width="120px" 
+          height="14px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+        <app-skeleton 
+          width="130px" 
+          height="14px" 
+          borderRadius="4px"
+          animation="pulse">
+        </app-skeleton>
+      </div>
+    </div>
+  </div>
+</div>

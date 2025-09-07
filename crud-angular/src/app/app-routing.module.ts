@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './core/presentation/features/post';
 
 const routes: Routes = [
-  { path: '', component: ListComponent },
-  { path: 'posts', component: ListComponent },
+  { 
+    path: '', 
+    loadChildren: () => import('./core/presentation/features/post/post.module').then(m => m.PostModule)
+  },
+  { 
+    path: 'posts', 
+    loadChildren: () => import('./core/presentation/features/post/post.module').then(m => m.PostModule)
+  },
   { path: '**', redirectTo: '' }
 ];
 

@@ -237,6 +237,13 @@ $mobile: 768px;
   padding: 1rem;
 }
 
+.post-list__loading-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
 .post-list__end {
   text-align: center;
   padding: 2rem;
